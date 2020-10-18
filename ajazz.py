@@ -37,6 +37,28 @@ other entities.
 Type "accept" to continue, or anything else to exit.
 '''
 
+
+MODES = [
+    ('Go with the stream', 'Diagonal line moving horizontally'), # rainbow/color, left/right, speed,
+    ('Clouds fly', 'Arrow tip moving horizontally'), # rainbow/color, left/right, speed,
+    ('Winding paths', 'Circular motion around the keyboard\'s center - Rectangular tornado'), # rainbow/color, left/right, speed,
+    ('Trial of the light', 'Homogeneous lighting fading through all RGB colors without going to black inbetween'), # speed
+    ('Breathing', 'Fading from the selected color/rainbow to black and back'), # rainbow/color, speed,
+    ('Normally on', 'Lighting on, no effects'), # color
+    ('Pass without trace', 'Pressed keys (can be multiple at once) become lit and than fade out, the rest of the keyboard is not lit'), # rainbow/color, speed,
+    ('Ripple graff', 'Ripple starting from the pressed key (can be multiple at once), the rest of the keyboard is not lit'), # rainbow/color, speed,
+    ('Fast run without trace', 'Same as `Pass without trace` but the effect propagates horizontally'), # rainbow/color, speed,
+    ('Snow winter jasmin', 'Every key is initiated with another (nicely desaturated) color (or off). The colors change at random times, making it look like raindrops from above'), # speed,
+    ('Flowers blooming', 'All keys have a random RGB color and fade through all colors in sync'), # speed,
+    ('Swift action', 'Rainbow pattern moving vertically over the keyboard'), # left/right, speed,
+    ('Hurricane', 'Standing (triangle) wave pattern'), # rainbow/color, speed,
+    ('Accumulate', 'Implosion to explosion with buildup in the middle before the explosion part'), # rainbow/color, speed,
+    ('Digital Times', 'Rain animation/the matrix letter raining thing. [Turn green for extra hacking speed]'), # rainbow/color, speed,
+    ('Surmount', 'Keyboard is homogeneously colored but shifts the color to a more saturated variant of the selected color depending on your typing speed'), # four colors available
+    ('Both ways', 'Tilted line bouncing horizontally. [Turn red for K.I.T.T. from Knight Rider]'), # rainbow/color,
+    ('Fast and the Furious', 'Solid RGB rainbow circles propagating from/to the center'), # inward/outward
+    ('Custom backlit mode', 'Set individual key colors and base color. Supports presets/(sub-)modes'), # color, background color, preset
+]
 # REPORT RATE (the origianl software detects modechanges performed on the keyboard)
 
 VERSION = (0, 1, 0)
