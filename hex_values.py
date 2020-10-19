@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 
 KEYCODES = {
     'esc'           : (0x00, 0x00),
@@ -115,8 +116,6 @@ KEYCODES = {
     'down'          : (0x68, 0x01),
     'right'         : (0x6B, 0x01),
 }
-
-
 
 
 PACKET_SIZE = 64
