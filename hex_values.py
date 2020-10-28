@@ -197,3 +197,21 @@ leds_pkts =        [    [0x04, 0x00, 0x00, 0x11, 0x36] + 59 * [0]
 
 SOLID_MODE       = 0x06
 CUSTOM_MODE      = 0x14
+
+# packet ineces
+CHECKSUM_NDX = 1
+FIRST_DATA_NDX = 3
+LEVEL_NDX = 8
+MODE_NDX = 8
+SOLID_LED_NDX = 8
+KEY_CODE_NDX = 5
+KEY_RGB_NDX = 8
+LEDS_PER_PKT_NDX = 5
+FIRST_LED_NDX = 8
+MAX_LEVEL = 5
+MAX_MODE = CUSTOM_MODE
+MODE_NAMES = {'solid': SOLID_MODE,
+              'custom': CUSTOM_MODE}
+
+
+LEDS_PER_PACKET = 0x36

@@ -151,6 +151,7 @@ def parse_commandline():
 
 if __name__ == "__main__":
     args = parse_commandline()
+    find_keyboard()
 
     # can't do this with argparse.add_mutually_exclusive_group(required=True)
     # because --mode can be standalone or added to other options

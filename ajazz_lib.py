@@ -1,12 +1,13 @@
 #!/usr/bin/env python2
 
+import subprocess
 import operator
 import sys
 import types
 from functools import reduce
 from hex_values import *
-
-
+import glob
+import re
 MODES = [
     # rainbow/color, left/right, speed,
     ('Go with the stream', 'Diagonal line moving horizontally'),
@@ -49,27 +50,25 @@ MODES = [
 # REPORT RATE (the origianl software detects modechanges performed on the keyboard)
 
 VERSION = (0, 1, 0)
+HID_NAME_IDENTIFIER = 'SONiX USB DEVICE'
 
-CHECKSUM_NDX = 1
-FIRST_DATA_NDX = 3
-
-MAX_LEVEL = 5
-LEVEL_NDX = 8
-
-MAX_MODE = CUSTOM_MODE
-MODE_NAMES = {'solid': SOLID_MODE,
-              'custom': CUSTOM_MODE}
-MODE_NDX = 8
-
-SOLID_LED_NDX = 8
-
-KEY_CODE_NDX = 5
-KEY_RGB_NDX = 8
-
-LEDS_PER_PACKET = 0x36
-LEDS_PER_PKT_NDX = 5
-FIRST_LED_NDX = 8
-
+def find_keyboard():
+    #lsusb = subprocess.check_output(["lsusb | grep 'Microdia'"], shell=True)
+    #sys_class = "cat /sys/class/hidraw/hidraw*/device/uevent | grep 'HID_NAME=SONiX USB DEVICE'"
+    path_template = '/sys/class/hidraw/hidraw{}/device/uevent'
+    hidraw_devices = glob.glob(path_template.format('*'))
+    kb_candidates = []
+    for device_description in hidraw_devices:
+        with open(device_description) as file:
+            for line in file:
+                if line.startswith("HID_NAME=") and HID_NAME_IDENTIFIER in line:
+                    kb_candidates.append(device_description)
+    # the origial readme from https://github.com/thanks4opensource/NotLinuxAjazzAK33RGB suggests
+    # that the second / higher hidraw_device represents the controle device
+    kb_id = max(re.search(path_template.format('(.+?)'), candidate).group(1) for candidate in kb_candidates)
+    keyboard = path_template.format(kb_id)
+    print(keyboard)
+    return keyboard
 
 def lo_hi_16(lo_hi):
     return (lo_hi[1] << 8) | lo_hi[0]
@@ -257,7 +256,7 @@ def send_keys(device, mode, keys_rgbs, verbose):
         send_mode_packet(device, mode, verbose)
         for (key, rgb) in keys_rgbs:
             set_lo_hi(key_pkt, KEY_CODE_NDX, KEYCODES[key.lower()])
-            set_rgb(key_pkt, KEY_RGB_NDX,          rgb)
+            set_rgb(key_pkt, KEY_RGB_NDX, rgb)
             write_read(device, key_pkt, verbose)
 
 def send_file(device, mode, file, verbose):
